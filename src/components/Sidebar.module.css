@@ -1,0 +1,19 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.item:hover {
+  background: #f1f5f9;
+}
+
+.active {
+  background: #eaf2ff;
+  border: 1px solid #cfe2ff;
+}
