@@ -1,16 +1,45 @@
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
+import Vocabulary from "@/components/sections/Vocabulary";
+import Kanji from "@/components/sections/Kanji";
+import Grammar from "@/components/sections/Grammar";
 import { toLevelLabel, safeLevel } from "@/data/jlpt";
 
 export default async function LevelPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ level: string }>;
+  searchParams: Promise<{ section?: string }>;
 }) {
   const { level } = await params;
+  const { section } = await searchParams;
+
   const lv = safeLevel(level);
   const label = toLevelLabel(lv);
+
+  function renderSection() {
+    switch (section) {
+      case "vocabulary":
+        return <Vocabulary />;
+      case "kanji":
+        return <Kanji />;
+      case "grammar":
+        return <Grammar />;
+      default:
+        return (
+          <div>
+            <h2 className="text-xl font-extrabold">
+              {label} Overview
+            </h2>
+            <p className="mt-2 text-slate-700">
+              Select a section from the left.
+            </p>
+          </div>
+        );
+    }
+  }
 
   return (
     <main>
@@ -20,17 +49,7 @@ export default async function LevelPage({
         <Sidebar />
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
-          <h1 className="text-xl font-extrabold">{label} Dashboard</h1>
-          <p className="mt-2 text-slate-700">
-            Sidebar will automatically show: <b>{label} - Vocabulary / Kanji / Grammar...</b>
-          </p>
-
-          <div className="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200">
-            <div className="font-extrabold">Next step:</div>
-            <div className="mt-1 text-slate-700">
-              Show content based on <code>?section=</code> (Vocabulary, Kanji, etc.)
-            </div>
-          </div>
+          {renderSection()}
         </div>
 
         <RightSidebar />
