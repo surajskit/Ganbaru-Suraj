@@ -1,12 +1,27 @@
+.sidebar {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 10px 12px;
-  border-radius: 14px;
-  font-weight: 700;
-  color: #0f172a;
+  border-radius: 12px;
   text-decoration: none;
+  color: #0f172a;
+  font-weight: 800;
+  transition: background 0.15s ease, border 0.15s ease;
+  border: 1px solid transparent;
 }
 
 .item:hover {
@@ -16,4 +31,25 @@
 .active {
   background: #eaf2ff;
   border: 1px solid #cfe2ff;
+}
+
+.iconWrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #f1f7ff;
+  border: 1px solid #dbeafe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 18px;
+  color: #2563eb;
+}
+
+.label {
+  line-height: 1.1;
 }
