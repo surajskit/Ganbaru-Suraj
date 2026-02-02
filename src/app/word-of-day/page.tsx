@@ -19,10 +19,10 @@ export default async function WordOfDayPage({
   const day = Number(sp.day || "1");
 
   let words: {
-    jp: string;
-    romaji: string;
+    kanji: string;   // 頑張る
+    kana: string;    // がんばる
     en: string;
-    example: string;
+    exampleJa: string;
     exampleEn: string;
   }[] = [];
 
@@ -54,15 +54,19 @@ export default async function WordOfDayPage({
                   className="border border-slate-200 rounded-2xl p-4 bg-slate-50"
                 >
                   <div className="text-xl font-extrabold text-blue-600">
-                    {i + 1}. {word.jp}
+                    {i + 1}. {word.kanji}
                   </div>
 
-                  <div className="mt-1 text-slate-700">{word.romaji}</div>
+                  <div className="mt-1 text-slate-700 font-semibold">
+                    {word.kana}
+                  </div>
 
-                  <div className="mt-1 font-semibold">{word.en}</div>
+                  <div className="mt-2 font-semibold">
+                    {word.en}
+                  </div>
 
                   <div className="mt-3 text-sm">
-                    <div>{word.example}</div>
+                    <div>{word.exampleJa}</div>
                     <div className="text-slate-500">{word.exampleEn}</div>
                   </div>
                 </div>

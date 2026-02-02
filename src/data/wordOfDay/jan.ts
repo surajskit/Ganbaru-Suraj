@@ -1,79 +1,82 @@
-export const JAN_WORDS: Record<number, {
-  jp: string;
-  romaji: string;
-  en: string;
-  example: string;
-  exampleEn: string;
-}[]> = {
+export const JAN_WORDS: Record<
+  number,
+  {
+    kanji: string;
+    kana: string;
+    en: string;
+    exampleJa: string;
+    exampleEn: string;
+  }[]
+> = {
   1: [
     {
-      jp: "がんばる",
-      romaji: "ganbaru",
+      kanji: "頑張る",
+      kana: "がんばる",
       en: "to do one's best",
-      example: "毎日日本語をがんばります。",
+      exampleJa: "毎日日本語を頑張ります。",
       exampleEn: "I study Japanese hard every day.",
     },
     {
-      jp: "たのしい",
-      romaji: "tanoshii",
-      en: "fun",
-      example: "このゲームは楽しいです。",
+      kanji: "楽しい",
+      kana: "たのしい",
+      en: "fun; enjoyable",
+      exampleJa: "このゲームは楽しいです。",
       exampleEn: "This game is fun.",
     },
     {
-      jp: "べんきょう",
-      romaji: "benkyou",
+      kanji: "勉強",
+      kana: "べんきょう",
       en: "study",
-      example: "毎日勉強します。",
-      exampleEn: "I study every day.",
+      exampleJa: "毎日日本語を勉強します。",
+      exampleEn: "I study Japanese every day.",
     },
     {
-      jp: "いく",
-      romaji: "iku",
+      kanji: "行く",
+      kana: "いく",
       en: "to go",
-      example: "あした学校に行きます。",
+      exampleJa: "明日学校に行きます。",
       exampleEn: "I will go to school tomorrow.",
     },
     {
-      jp: "みる",
-      romaji: "miru",
-      en: "to see / watch",
-      example: "テレビを見ます。",
-      exampleEn: "I watch TV.",
+      kanji: "見る",
+      kana: "みる",
+      en: "to see; to watch",
+      exampleJa: "夜にテレビを見ます。",
+      exampleEn: "I watch TV at night.",
     },
     {
-      jp: "たべる",
-      romaji: "taberu",
+      kanji: "食べる",
+      kana: "たべる",
       en: "to eat",
-      example: "りんごを食べます。",
-      exampleEn: "I eat an apple.",
+      exampleJa: "朝ご飯を食べます。",
+      exampleEn: "I eat breakfast.",
     },
     {
-      jp: "のむ",
-      romaji: "nomu",
+      kanji: "飲む",
+      kana: "のむ",
       en: "to drink",
-      example: "水を飲みます。",
-      exampleEn: "I drink water.",
+      exampleJa: "水をたくさん飲みます。",
+      exampleEn: "I drink a lot of water.",
     },
     {
-      jp: "はなす",
-      romaji: "hanasu",
-      en: "to speak",
-      example: "日本語で話します。",
-      exampleEn: "I speak in Japanese.",
+      kanji: "話す",
+      kana: "はなす",
+      en: "to speak; to talk",
+      exampleJa: "友だちと日本語で話します。",
+      exampleEn: "I speak Japanese with my friend.",
     },
     {
-      jp: "かう",
-      romaji: "kau",
+      kanji: "買う",
+      kana: "かう",
       en: "to buy",
-      example: "パンを買います。",
-      exampleEn: "I buy bread.",
+      exampleJa: "スーパーでパンを買います。",
+      exampleEn: "I buy bread at the supermarket.",
     },
     {
-      jp: "きく",
-      romaji: "kiku",
-      en: "to listen / ask",
-      example: "音楽を聞きます。",
+      kanji: "聞く",
+      kana: "きく",
+      en: "to listen; to ask",
+      exampleJa: "音楽を聞きます。",
       exampleEn: "I listen to music.",
     },
   ],
