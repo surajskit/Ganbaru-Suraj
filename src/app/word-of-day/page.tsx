@@ -3,13 +3,20 @@ import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
 import { JAN_WORDS } from "@/data/wordOfDay/jan";
 
-export default function WordOfDayPage({
+type SP = {
+  month?: string;
+  day?: string;
+};
+
+export default async function WordOfDayPage({
   searchParams,
 }: {
-  searchParams: { month?: string; day?: string };
+  searchParams: Promise<SP> | SP;
 }) {
-  const month = (searchParams.month || "jan").toLowerCase();
-  const day = Number(searchParams.day || "1");
+  const sp = await Promise.resolve(searchParams);
+
+  const month = (sp.month || "jan").toLowerCase();
+  const day = Number(sp.day || "1");
 
   let words: {
     jp: string;
@@ -38,9 +45,7 @@ export default function WordOfDayPage({
           </h1>
 
           {words.length === 0 ? (
-            <p className="mt-4 text-slate-700">
-              No words added for this day yet.
-            </p>
+            <p className="mt-4 text-slate-700">No words added for this day yet.</p>
           ) : (
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
               {words.map((word, i) => (
@@ -52,19 +57,13 @@ export default function WordOfDayPage({
                     {i + 1}. {word.jp}
                   </div>
 
-                  <div className="mt-1 text-slate-700">
-                    {word.romaji}
-                  </div>
+                  <div className="mt-1 text-slate-700">{word.romaji}</div>
 
-                  <div className="mt-1 font-semibold">
-                    {word.en}
-                  </div>
+                  <div className="mt-1 font-semibold">{word.en}</div>
 
                   <div className="mt-3 text-sm">
                     <div>{word.example}</div>
-                    <div className="text-slate-500">
-                      {word.exampleEn}
-                    </div>
+                    <div className="text-slate-500">{word.exampleEn}</div>
                   </div>
                 </div>
               ))}

@@ -1,3 +1,4 @@
+//components/sidebar.tsx
 "use client";
 
 import Link from "next/link";
@@ -119,8 +120,8 @@ export default function Sidebar() {
     );
   }
 
-  // =========================
-  // ✅ Word of the Day Sidebar (Months + day grid inside active month)
+   // =========================
+  // ✅ Word of the Day Sidebar (Selected month fixed on top + month list below)
   // =========================
   const monthKey = (sp.get("month") || "jan").toLowerCase();
   const activeDay = Number(sp.get("day") || "1");
@@ -130,44 +131,56 @@ export default function Sidebar() {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.menu}>
-        {MONTHS.map((m) => {
-          const isActiveMonth = m.key === currentMonth.key;
+        {/* ✅ Top fixed: selected month + day grid */}
+        <div className="mb-4">
+          <Link
+            href={`/word-of-day?month=${currentMonth.key}&day=1`}
+            className={`${styles.item} ${styles.active}`}
+          >
+            <span className={styles.label}>{currentMonth.label}</span>
+          </Link>
 
-          return (
-            <div key={m.key}>
+          <div className="mt-2 grid grid-cols-6 gap-2 px-1">
+            {Array.from({ length: currentMonth.days }, (_, i) => i + 1).map(
+              (d) => {
+                const isActive = d === activeDay;
+
+                return (
+                  <Link
+                    key={d}
+                    href={`/word-of-day?month=${currentMonth.key}&day=${d}`}
+                    className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
+                      isActive
+                        ? "bg-blue-600 text-white border-blue-600"
+                        : "bg-white border-slate-200 hover:bg-slate-50"
+                    }`}
+                  >
+                    {d}
+                  </Link>
+                );
+              }
+            )}
+          </div>
+        </div>
+
+        {/* ✅ Month list below (no grid here) */}
+        <div className="space-y-1">
+          {MONTHS.map((m) => {
+            const isActiveMonth = m.key === currentMonth.key;
+
+            return (
               <Link
+                key={m.key}
                 href={`/word-of-day?month=${m.key}&day=1`}
                 className={`${styles.item} ${isActiveMonth ? styles.active : ""}`}
               >
                 <span className={styles.label}>{m.label}</span>
               </Link>
-
-              {/* show day grid ONLY for selected month */}
-              {isActiveMonth && (
-                <div className="mt-2 grid grid-cols-6 gap-2 px-1">
-                  {Array.from({ length: m.days }, (_, i) => i + 1).map((d) => {
-                    const isActive = d === activeDay;
-
-                    return (
-                      <Link
-                        key={d}
-                        href={`/word-of-day?month=${m.key}&day=${d}`}
-                        className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
-                          isActive
-                            ? "bg-blue-600 text-white border-blue-600"
-                            : "bg-white border-slate-200 hover:bg-slate-50"
-                        }`}
-                      >
-                        {d}
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </aside>
   );
+
 }
