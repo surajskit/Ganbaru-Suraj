@@ -2,66 +2,37 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
 
-type SP = { month?: string; day?: string };
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3005";
 
-const MONTH_NUM: Record<string, number> = {
-  jan: 1,
-  feb: 2,
-  mar: 3,
-  apr: 4,
-  may: 5,
-  jun: 6,
-  jul: 7,
-  aug: 8,
-  sep: 9,
-  oct: 10,
-  nov: 11,
-  dec: 12,
+function todayISO() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+type Word = {
+  position: number;
+  kanji: string;
+  kana: string;
+  en: string;
+  exampleJa?: string | null;
+  exampleEn?: string | null;
 };
 
-function pad2(n: number) {
-  return String(n).padStart(2, "0");
-}
+export default async function Home() {
+  const date = todayISO();
 
-async function getWordOfDay(dateStr: string) {
-  const base = process.env.API_BASE_URL || "http://localhost:3005";
-  const res = await fetch(`${base}/api/word-of-day?date=${dateStr}`, {
-    cache: "no-store",
-  });
+  let words: Word[] = [];
 
-  if (!res.ok) return null;
-
-  const data = (await res.json()) as {
-    item: null | {
-      kanji: string;
-      kana: string;
-      en: string;
-      exampleJa?: string | null;
-      exampleEn?: string | null;
-    };
-  };
-
-  return data.item;
-}
-
-export default async function WordOfDayPage({
-  searchParams,
-}: {
-  searchParams: Promise<SP> | SP;
-}) {
-  const sp = await Promise.resolve(searchParams);
-
-  const monthKey = (sp.month || "jan").toLowerCase();
-  const day = Number(sp.day || "1");
-
-  const monthNum = MONTH_NUM[monthKey] ?? 1;
-
-  // Use current year (you can change later if you add year param)
-  const year = new Date().getFullYear();
-
-  const dateStr = `${year}-${pad2(monthNum)}-${pad2(day)}`;
-
-  const item = await getWordOfDay(dateStr);
+  try {
+    const res = await fetch(
+      `${API_BASE}/api/word-of-day?date=${date}`,
+      { cache: "no-store" }
+    );
+    const data = await res.json();
+    words = data.words || [];
+  } catch {
+    words = [];
+  }
 
   return (
     <main>
@@ -73,34 +44,62 @@ export default async function WordOfDayPage({
 
         {/* Center */}
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
-          <h1 className="text-xl font-extrabold">
-            Word of the Day — {monthKey.toUpperCase()} {day}
-          </h1>
+          <h2 className="text-lg font-extrabold text-slate-900">
+            Progress
+          </h2>
 
-          {!item ? (
-            <p className="mt-4 text-slate-700">No words added for this day yet.</p>
-          ) : (
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="border border-slate-200 rounded-2xl p-4 bg-slate-50">
-                <div className="text-xl font-extrabold text-blue-600">
-                  1. {item.kanji}
-                </div>
+          <div className="mt-3 h-2 rounded-full bg-slate-200 overflow-hidden">
+            <div className="h-full w-1/2 bg-blue-600 rounded-full" />
+          </div>
 
-                <div className="mt-1 text-slate-700 font-semibold">
-                  {item.kana}
-                </div>
+          <button className="mt-4 w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold">
+            Continue learning
+          </button>
 
-                <div className="mt-2 font-semibold">{item.en}</div>
+          {/* 🔑 10 Words of the Day */}
+          <div className="mt-6">
+            <h3 className="font-extrabold text-slate-900">
+              10 Words of the Day
+            </h3>
 
-                <div className="mt-3 text-sm">
-                  {item.exampleJa && <div>{item.exampleJa}</div>}
-                  {item.exampleEn && (
-                    <div className="text-slate-500">{item.exampleEn}</div>
-                  )}
-                </div>
+            {words.length === 0 ? (
+              <p className="mt-3 text-sm text-slate-600">
+                No words added for today yet.
+              </p>
+            ) : (
+              <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                {words.map((w) => (
+                  <div
+                    key={w.position}
+                    className="border border-slate-200 rounded-2xl p-3 bg-slate-50"
+                  >
+                    <div className="font-extrabold text-slate-900">
+                      {w.position}. {w.kanji}
+                    </div>
+
+                    <div className="mt-1 text-slate-700 font-semibold">
+                      {w.kana}
+                    </div>
+
+                    <div className="mt-1 text-sm font-semibold">
+                      {w.en}
+                    </div>
+
+                    {(w.exampleJa || w.exampleEn) && (
+                      <div className="mt-2 text-sm">
+                        {w.exampleJa && <div>{w.exampleJa}</div>}
+                        {w.exampleEn && (
+                          <div className="text-slate-500">
+                            {w.exampleEn}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Right */}
