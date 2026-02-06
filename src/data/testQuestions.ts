@@ -1,7 +1,7 @@
 // src/data/testQuestions.ts
 
 export type TestQuestion = {
-  id: number;
+  id: string;
   question: string;
   options: string[];
   correctIndex: number;
@@ -13,7 +13,7 @@ export type TestQuestion = {
  */
 export const dailyQuestions: TestQuestion[] = [
   {
-    id: 1,
+    id: "q-1",
     question: "What does 頑張る mean?",
     options: [
       "to do one's best",
@@ -23,7 +23,7 @@ export const dailyQuestions: TestQuestion[] = [
     correctIndex: 0,
   },
   {
-    id: 2,
+    id: "q-2",
     question: "How do you read 頑張る?",
     options: [
       "がんばる",
