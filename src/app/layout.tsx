@@ -1,3 +1,4 @@
+//src/app/layout.ts
 import "./globals.css";
 
 export const metadata = {

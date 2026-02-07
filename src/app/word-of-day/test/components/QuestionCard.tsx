@@ -1,3 +1,5 @@
+//src/app/word-of-day/components/QuestionCard.tsx
+
 import { TestQuestion } from "@/data/testQuestions";
 
 type Props = {

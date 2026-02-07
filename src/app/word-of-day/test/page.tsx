@@ -1,3 +1,4 @@
+//src/app/word-of-day/weekly/page.tsx
 import Link from "next/link";
 
 export default function TestHomePage() {

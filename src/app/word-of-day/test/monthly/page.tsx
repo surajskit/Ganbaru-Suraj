@@ -1,3 +1,5 @@
+//src/app/word-of-day/monthly/page.tsx
+
 import TestPage from "../components/TestPage";
 import { monthlyQuestions } from "@/data/testQuestions";
 

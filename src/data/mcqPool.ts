@@ -1,3 +1,5 @@
+// src/data/mcqPool.ts
+
 import { McqWord } from "./types";
 
 

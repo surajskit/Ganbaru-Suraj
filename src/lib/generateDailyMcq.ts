@@ -1,3 +1,4 @@
+// src/lib/generateDailyMcq.ts
 import { generateMcqQuestion } from "./generateMcq";
 import { TestQuestion } from "@/data/testQuestions";
 

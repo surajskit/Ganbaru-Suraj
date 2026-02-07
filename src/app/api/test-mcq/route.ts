@@ -1,3 +1,4 @@
+//src/app/api/test-mcq/route.ts
 import { NextResponse } from "next/server";
 import { generateMcqQuestion } from "@/lib/generateMcq";
 

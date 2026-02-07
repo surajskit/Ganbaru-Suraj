@@ -1,3 +1,5 @@
+//src/app/word-of-day/components/ResultScreen.tsx
+
 import { TestQuestion } from "@/data/testQuestions";
 import Link from "next/link";
 

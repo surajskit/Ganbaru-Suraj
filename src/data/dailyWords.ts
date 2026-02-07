@@ -1,3 +1,4 @@
+//src/data/dailyWords.ts
 export const dailyWords = [
   {
     id: "w-1",

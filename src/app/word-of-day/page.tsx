@@ -1,3 +1,4 @@
+//scr/app/word-of-day/test/page.tsx
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
