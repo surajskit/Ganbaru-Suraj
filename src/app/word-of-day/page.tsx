@@ -1,4 +1,5 @@
 //scr/app/word-of-day/test/page.tsx
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
@@ -74,10 +75,18 @@ export default async function WordOfDayPage({
         <Sidebar />
 
         <div className="bg-white border border-slate-200 rounded-2xl p-4">
-          <h1 className="text-xl font-extrabold">
-            Word of the Day — {monthKey.toUpperCase()} {dayNum}
-            <span className="ml-2 text-xs text-slate-500">({date})</span>
-          </h1>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <h1 className="text-xl font-extrabold">
+              Word of the Day — {monthKey.toUpperCase()} {dayNum}
+              <span className="ml-2 text-xs text-slate-500">({date})</span>
+            </h1>
+            <Link
+              href="/test"
+              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+            >
+              Take a Test
+            </Link>
+          </div>
 
           {words.length === 0 ? (
             <p className="mt-4 text-slate-700">No words added for this day yet.</p>
