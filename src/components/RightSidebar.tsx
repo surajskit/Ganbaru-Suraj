@@ -22,6 +22,10 @@ export default function RightSidebar() {
             <span className="font-bold">120</span>
           </div>
         </div>
+
+        <button className="mt-4 w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold">
+          Continue learning
+        </button>
       </div>
 
       {/* Card 2: Follow us */}

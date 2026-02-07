@@ -1,6 +1,9 @@
 import TestPage from "../components/TestPage";
-import { dailyQuestions } from "@/data/testQuestions";
+import { generateDailyMcqs } from "@/lib/generateDailyMcq";
+import { dailyWords } from "@/data/dailyWords";
+
+const questions = generateDailyMcqs(dailyWords);
 
 export default function DailyTestPage() {
-  return <TestPage questions={dailyQuestions} />;
+  return <TestPage questions={questions} />;
 }
