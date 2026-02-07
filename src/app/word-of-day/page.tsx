@@ -1,4 +1,3 @@
-//src/app/word-of-day/page.tsx
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
@@ -44,16 +43,14 @@ export default async function WordOfDayPage({
 }) {
   const sp = await searchParams;
 
-  const monthKey = (sp.month || "jan").toLowerCase();
-  const dayNum = Number(sp.day || "1");
-
-  // ✅ year default = current year (Japan time not required here)
+  // Check if searchParams exist, otherwise use today's date
+  const monthKey = (sp.month || new Date().toLocaleString("default", { month: "short" })).toLowerCase();
+  const dayNum = Number(sp.day || new Date().getDate());
   const year = Number(sp.year || new Date().getFullYear());
 
   const mm = MONTH_TO_NUM[monthKey] || "01";
   const dd = pad2(dayNum);
 
-  // ✅ This is what your backend expects
   const date = `${year}-${mm}-${dd}`;
 
   let words: Word[] = [];
