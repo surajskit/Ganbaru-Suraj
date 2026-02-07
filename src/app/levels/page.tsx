@@ -15,7 +15,7 @@ export default function LevelsPage() {
             <Link
               key={lvl}
               href={`/levels/${lvl}`}
-              className="px-4 py-3 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 font-extrabold"
+              className="card card-link px-4 py-3 font-extrabold"
             >
               {toLevelLabel(lvl)}
             </Link>

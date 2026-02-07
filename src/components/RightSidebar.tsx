@@ -4,7 +4,7 @@ export default function RightSidebar() {
   return (
     <aside className="grid gap-3 sticky top-24 h-fit">
       {/* Card 1: My Progress */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4">
+      <div className="card card-soft p-4">
         <div className="flex items-center justify-between">
           <h3 className="font-extrabold text-slate-900">My Progress</h3>
           <div className={styles.ring} aria-label="50 percent progress">
@@ -23,13 +23,13 @@ export default function RightSidebar() {
           </div>
         </div>
 
-        <button className="mt-4 w-full py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold">
+        <button className="btn-primary mt-4 w-full py-3 rounded-2xl">
           Continue learning
         </button>
       </div>
 
       {/* Card 2: Follow us */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-4">
+      <div className="card p-4">
         <h3 className="font-extrabold text-slate-900">Follow us</h3>
 
         <div className="mt-3 grid grid-cols-4 gap-2">

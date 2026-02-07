@@ -74,7 +74,7 @@ export default async function WordOfDayPage({
       <section className="mx-auto max-w-7xl px-4 py-5 grid grid-cols-1 lg:grid-cols-[260px_1fr_320px] gap-4 items-start">
         <Sidebar />
 
-        <div className="bg-white border border-slate-200 rounded-2xl p-4">
+        <div className="card p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h1 className="text-xl font-extrabold">
               Word of the Day — {monthKey.toUpperCase()} {dayNum}
@@ -82,7 +82,7 @@ export default async function WordOfDayPage({
             </h1>
             <Link
               href="/test"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+              className="btn-primary inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm"
             >
               Take a Test
             </Link>
@@ -95,9 +95,9 @@ export default async function WordOfDayPage({
               {words.map((word) => (
                 <div
                   key={word.position}
-                  className="border border-slate-200 rounded-2xl p-4 bg-slate-50"
+                  className="card card-soft p-4"
                 >
-                  <div className="text-xl font-extrabold text-blue-600">
+                  <div className="text-xl font-extrabold text-teal-700">
                     {word.position}. {word.kanji}
                   </div>
 

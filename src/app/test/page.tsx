@@ -73,7 +73,7 @@ export default async function TestHomePage({
         <Sidebar />
 
         <div className="space-y-4">
-          <div className="bg-white border border-slate-200 rounded-2xl p-6">
+          <div className="card p-6">
             <h1 className="text-2xl font-extrabold text-slate-900">Tests</h1>
             <p className="mt-2 text-slate-600">
               Pick a test type to start your MCQ practice.
@@ -82,7 +82,7 @@ export default async function TestHomePage({
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link
                 href="/test/daily"
-                className="rounded-2xl border border-slate-200 p-4 hover:border-slate-400"
+                className="card card-link p-4"
               >
                 <div className="text-lg font-semibold text-slate-900">Daily</div>
                 <div className="mt-2 text-sm text-slate-600">
@@ -92,7 +92,7 @@ export default async function TestHomePage({
 
               <Link
                 href="/test/weekly"
-                className="rounded-2xl border border-slate-200 p-4 hover:border-slate-400"
+                className="card card-link p-4"
               >
                 <div className="text-lg font-semibold text-slate-900">Weekly</div>
                 <div className="mt-2 text-sm text-slate-600">
@@ -102,7 +102,7 @@ export default async function TestHomePage({
 
               <Link
                 href="/test/monthly"
-                className="rounded-2xl border border-slate-200 p-4 hover:border-slate-400"
+                className="card card-link p-4"
               >
                 <div className="text-lg font-semibold text-slate-900">Monthly</div>
                 <div className="mt-2 text-sm text-slate-600">
@@ -112,7 +112,7 @@ export default async function TestHomePage({
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-2xl p-6">
+          <div className="card card-soft p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-bold text-slate-900">Daily calendar</h2>
               <span className="text-xs font-semibold text-slate-500">
@@ -132,7 +132,7 @@ export default async function TestHomePage({
                       href={`/test/selected?date=${year}-${monthNumber}-${dayValue}`}
                       className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
                         isActive
-                          ? "bg-blue-600 text-white border-blue-600"
+                          ? "bg-teal-600 text-white border-teal-600"
                           : "bg-white border-slate-200 hover:bg-slate-50"
                       }`}
                     >
@@ -152,7 +152,7 @@ export default async function TestHomePage({
                     href={`/test?month=${m.key}&day=1`}
                     className={`rounded-xl border px-3 py-2 text-xs font-semibold ${
                       isActiveMonth
-                        ? "border-blue-200 bg-blue-50 text-blue-700"
+                        ? "border-teal-200 bg-teal-50 text-teal-700"
                         : "border-slate-200 text-slate-700 hover:border-slate-300"
                     }`}
                   >

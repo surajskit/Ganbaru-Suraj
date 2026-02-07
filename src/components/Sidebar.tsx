@@ -192,7 +192,7 @@ export default function Sidebar() {
                   href={dayHref}
                   className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
                     isActive
-                      ? "bg-blue-600 text-white border-blue-600"
+                      ? "bg-teal-600 text-white border-teal-600"
                       : "bg-white border-slate-200 hover:bg-slate-50"
                   }`}
                 >
