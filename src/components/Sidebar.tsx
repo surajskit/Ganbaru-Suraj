@@ -1,8 +1,7 @@
-//components/sidebar.tsx
-"use client";
+"use client";  // This line marks the component as a client-side component
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";  // These hooks require a client-side component
 import styles from "./Sidebar.module.css";
 import { safeLevel, toLevelLabel } from "@/data/jlpt";
 import {
@@ -120,11 +119,16 @@ export default function Sidebar() {
     );
   }
 
-   // =========================
+  // =========================
   // ✅ Word of the Day Sidebar (Selected month fixed on top + month list below)
   // =========================
-  const monthKey = (sp.get("month") || "jan").toLowerCase();
-  const activeDay = Number(sp.get("day") || "1");
+  // Get today's date to default to the current month and day
+  const today = new Date();
+  const todayMonthKey = today.toLocaleString("default", { month: "short" }).toLowerCase();
+  const todayDay = today.getDate();
+
+  const monthKey = (sp.get("month") || todayMonthKey).toLowerCase();
+  const activeDay = Number(sp.get("day") || todayDay);
 
   const currentMonth = MONTHS.find((m) => m.key === monthKey) || MONTHS[0];
 
@@ -141,25 +145,23 @@ export default function Sidebar() {
           </Link>
 
           <div className="mt-2 grid grid-cols-6 gap-2 px-1">
-            {Array.from({ length: currentMonth.days }, (_, i) => i + 1).map(
-              (d) => {
-                const isActive = d === activeDay;
+            {Array.from({ length: currentMonth.days }, (_, i) => i + 1).map((d) => {
+              const isActive = d === activeDay;
 
-                return (
-                  <Link
-                    key={d}
-                    href={`/word-of-day?month=${currentMonth.key}&day=${d}`}
-                    className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
-                      isActive
-                        ? "bg-blue-600 text-white border-blue-600"
-                        : "bg-white border-slate-200 hover:bg-slate-50"
-                    }`}
-                  >
-                    {d}
-                  </Link>
-                );
-              }
-            )}
+              return (
+                <Link
+                  key={d}
+                  href={`/word-of-day?month=${currentMonth.key}&day=${d}`}
+                  className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
+                    isActive
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white border-slate-200 hover:bg-slate-50"
+                  }`}
+                >
+                  {d}
+                </Link>
+              );
+            })}
           </div>
         </div>
 
@@ -182,5 +184,4 @@ export default function Sidebar() {
       </div>
     </aside>
   );
-
 }
