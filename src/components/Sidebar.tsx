@@ -53,7 +53,26 @@ const MONTHS = [
 function getMode(pathname: string) {
   if (pathname.startsWith("/everyday")) return "everyday";
   if (pathname.startsWith("/word-of-day")) return "word-of-day";
+  if (pathname.startsWith("/test")) return "test";
   return "jlpt"; // "/" and "/levels/.."
+}
+
+function monthKeyToNumber(key: string) {
+  const index = MONTHS.findIndex((m) => m.key === key);
+  if (index === -1) return "01";
+  return String(index + 1).padStart(2, "0");
+}
+
+function parseDateParam(dateParam: string | null) {
+  if (!dateParam) return null;
+  const parts = dateParam.split("-");
+  if (parts.length !== 3) return null;
+  const [yearRaw, monthRaw, dayRaw] = parts;
+  const year = Number(yearRaw);
+  const month = Number(monthRaw);
+  const day = Number(dayRaw);
+  if (!year || !month || !day) return null;
+  return { year, month, day };
 }
 
 export default function Sidebar() {
@@ -120,25 +139,40 @@ export default function Sidebar() {
   }
 
   // =========================
-  // ✅ Word of the Day Sidebar (Selected month fixed on top + month list below)
+  // ✅ Word of the Day/Test Sidebar (Selected month fixed on top + month list below)
   // =========================
-  // Get today's date to default to the current month and day
   const today = new Date();
   const todayMonthKey = today.toLocaleString("default", { month: "short" }).toLowerCase();
   const todayDay = today.getDate();
+  const todayYear = today.getFullYear();
 
-  const monthKey = (sp.get("month") || todayMonthKey).toLowerCase();
-  const activeDay = Number(sp.get("day") || todayDay);
+  const parsedDate = parseDateParam(sp.get("date"));
+  const monthKeyFromQuery = (sp.get("month") || "").toLowerCase();
+  const dayFromQuery = Number(sp.get("day"));
+
+  const monthKey =
+    MONTHS.find((m) => m.key === monthKeyFromQuery)?.key ||
+    (parsedDate ? MONTHS[parsedDate.month - 1]?.key : null) ||
+    todayMonthKey;
+  const activeDay = parsedDate
+    ? parsedDate.day
+    : Number.isFinite(dayFromQuery) && dayFromQuery > 0
+      ? dayFromQuery
+      : todayDay;
+  const year = parsedDate ? parsedDate.year : todayYear;
 
   const currentMonth = MONTHS.find((m) => m.key === monthKey) || MONTHS[0];
+  const monthNumber = monthKeyToNumber(currentMonth.key);
+
+  const isTestMode = mode === "test";
+  const basePath = isTestMode ? "/test" : "/word-of-day";
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.menu}>
-        {/* ✅ Top fixed: selected month + day grid */}
         <div className="mb-4">
           <Link
-            href={`/word-of-day?month=${currentMonth.key}&day=1`}
+            href={`${basePath}?month=${currentMonth.key}&day=1`}
             className={`${styles.item} ${styles.active}`}
           >
             <span className={styles.label}>{currentMonth.label}</span>
@@ -147,11 +181,15 @@ export default function Sidebar() {
           <div className="mt-2 grid grid-cols-6 gap-2 px-1">
             {Array.from({ length: currentMonth.days }, (_, i) => i + 1).map((d) => {
               const isActive = d === activeDay;
+              const dayValue = String(d).padStart(2, "0");
+              const dayHref = isTestMode
+                ? `/test/daily?date=${year}-${monthNumber}-${dayValue}`
+                : `/word-of-day?month=${currentMonth.key}&day=${d}`;
 
               return (
                 <Link
                   key={d}
-                  href={`/word-of-day?month=${currentMonth.key}&day=${d}`}
+                  href={dayHref}
                   className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
                     isActive
                       ? "bg-blue-600 text-white border-blue-600"
@@ -165,7 +203,6 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* ✅ Month list below (no grid here) */}
         <div className="space-y-1">
           {MONTHS.map((m) => {
             const isActiveMonth = m.key === currentMonth.key;
@@ -173,7 +210,7 @@ export default function Sidebar() {
             return (
               <Link
                 key={m.key}
-                href={`/word-of-day?month=${m.key}&day=1`}
+                href={`${basePath}?month=${m.key}&day=1`}
                 className={`${styles.item} ${isActiveMonth ? styles.active : ""}`}
               >
                 <span className={styles.label}>{m.label}</span>
