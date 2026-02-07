@@ -183,7 +183,7 @@ export default function Sidebar() {
               const isActive = d === activeDay;
               const dayValue = String(d).padStart(2, "0");
               const dayHref = isTestMode
-                ? `/test/daily?date=${year}-${monthNumber}-${dayValue}`
+                ? `/test/selected?date=${year}-${monthNumber}-${dayValue}`
                 : `/word-of-day?month=${currentMonth.key}&day=${d}`;
 
               return (

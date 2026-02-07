@@ -129,7 +129,7 @@ export default async function TestHomePage({
                   return (
                     <Link
                       key={d}
-                      href={`/test/daily?date=${year}-${monthNumber}-${dayValue}`}
+                      href={`/test/selected?date=${year}-${monthNumber}-${dayValue}`}
                       className={`text-center text-xs font-extrabold rounded-xl border px-2 py-2 ${
                         isActive
                           ? "bg-blue-600 text-white border-blue-600"
