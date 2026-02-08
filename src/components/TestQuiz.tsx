@@ -6,6 +6,7 @@ type Mcq = {
   question: string;
   options: string[];
   correctAnswer: string;
+  hint?: string | null;
 };
 
 type TestQuizProps = {
@@ -17,6 +18,7 @@ type TestQuizProps = {
 export default function TestQuiz({ title, description, questions }: TestQuizProps) {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [shownHints, setShownHints] = useState<Record<number, boolean>>({});
 
   const score = useMemo(() => {
     if (!submitted) return 0;
@@ -35,6 +37,11 @@ export default function TestQuiz({ title, description, questions }: TestQuizProp
   const handleReset = () => {
     setAnswers({});
     setSubmitted(false);
+    setShownHints({});
+  };
+
+  const handleHintToggle = (index: number) => {
+    setShownHints((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
   if (total === 0) {
@@ -64,8 +71,24 @@ export default function TestQuiz({ title, description, questions }: TestQuizProp
       <div className="mt-6 space-y-5">
         {questions.map((q, index) => (
           <div key={`${index}-${q.question}`} className="rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-sm">
-            <div className="font-semibold text-slate-900">
-              {index + 1}. {q.question}
+            <div className="flex flex-wrap items-center gap-2 font-semibold text-slate-900">
+              <span>
+                {index + 1}. {q.question.replace(/^What is the\s+/i, "")}
+              </span>
+              {q.hint && (
+                <button
+                  type="button"
+                  onClick={() => handleHintToggle(index)}
+                  className="btn-ghost rounded-full px-3 py-1 text-xs"
+                >
+                  {shownHints[index] ? "Hide hint" : "Hint"}
+                </button>
+              )}
+              {q.hint && shownHints[index] && (
+                <span className="text-sm font-semibold text-teal-700">
+                  {q.hint}
+                </span>
+              )}
             </div>
             <div className="mt-3 grid gap-2">
               {q.options.map((option) => {
