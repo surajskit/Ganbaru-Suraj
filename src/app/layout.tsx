@@ -2,7 +2,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Ganbaru Suraj",
+  title: "Ganbaru Daily",
   description: "Japanese Learning Platform",
 };
 

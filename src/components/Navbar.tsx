@@ -24,7 +24,7 @@ export default function Navbar() {
         {/* Logo */}
           <Link href="/" className={styles.brand}>
             <span className={styles.logo} />
-            <span className={styles.brandText}>Ganbaru Suraj</span>
+            <span className={styles.brandText}>Ganbaru Daily</span>
           </Link>
 
         {/* Nav */}
