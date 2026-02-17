@@ -1,4 +1,6 @@
 //src/app/page.tsx
+
+export const dynamic = "force-dynamic";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
