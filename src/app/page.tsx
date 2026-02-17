@@ -1,10 +1,10 @@
 //src/app/page.tsx
 
-export const dynamic = "force-dynamic";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
 import WordOfDayPage from "./word-of-day/page";
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
