@@ -1,5 +1,5 @@
 
-
+import Navbar from "@/components/Navbar";
 import { Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
