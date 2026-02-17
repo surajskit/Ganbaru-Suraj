@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import dynamic from "next/dynamic";
+const Sidebar = dynamic(() => import("@/components/Sidebar"), { ssr: false });
 import RightSidebar from "@/components/RightSidebar";
 
 const MONTHS = [

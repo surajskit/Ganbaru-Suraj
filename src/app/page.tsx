@@ -1,7 +1,6 @@
 
 import Navbar from "@/components/Navbar";
-import dynamic from "next/dynamic";
-const Sidebar = dynamic(() => import("@/components/Sidebar"), { ssr: false });
+import Sidebar from "@/components/Sidebar";
 import RightSidebar from "@/components/RightSidebar";
 import WordOfDayPage from "./word-of-day/page";
 
