@@ -1,7 +1,7 @@
 
 import Navbar from "@/components/Navbar";
-import { Suspense } from "react";
-import Sidebar from "@/components/Sidebar";
+import dynamic from "next/dynamic";
+const Sidebar = dynamic(() => import("@/components/Sidebar"), { ssr: false });
 import RightSidebar from "@/components/RightSidebar";
 import WordOfDayPage from "./word-of-day/page";
 
@@ -12,9 +12,7 @@ export default function Home() {
 
       <section className="mx-auto max-w-7xl px-4 py-5 grid grid-cols-1 lg:grid-cols-[260px_1fr_320px] gap-4 items-start">
         {/* Left */}
-        <Suspense fallback={null}>
-          <Sidebar />
-        </Suspense>
+        <Sidebar />
 
         {/* Center */}
 
